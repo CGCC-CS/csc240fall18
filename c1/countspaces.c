@@ -17,7 +17,7 @@ int main() {
 }
 
 int count_spaces(char str[], int len) {
-  int ii;
+  int ii = 0;
   int count = 0;
 
   while ( (ii < len) && (str[ii] != '\0') ) {
