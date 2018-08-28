@@ -55,7 +55,7 @@ int main (void)
   }
  
   printf ("\nBreak example : \n");
-  while (1) { 
+  for(;;) { 
       /* If a is bigger than 100 quit the loop */
       if (a > 100) {
           printf ("  Breaking . . \n");
