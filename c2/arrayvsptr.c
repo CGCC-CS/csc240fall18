@@ -5,48 +5,47 @@ int main() {
   int * ptr;
   int ii;
 
-  ptr = arr;  /* equivalent to ptr = &arr[0]; */
+  ptr = arr;   /* equivalent to: ptr = &arr[0] */
 
   printf("Array indexing: \n");
-  for (ii=0;ii<5;ii++) {
+  for(ii=0;ii<5;ii++) {
     printf("%d ", arr[ii]);
-  }
-  printf ("\n");
-
-  printf("\nPointer arithmetic: \n");
-  for (ii=0;ii<5;ii++) {
+  } 
+  printf("\n\n");
+  
+  printf("Pointer arithmetic: \n");
+  for(ii=0;ii<5;ii++) {
     printf("%d ", *(ptr+ii));
-  }
-  printf ("\n");
+  } 
+  printf("\n\n");
 
-  printf("\nArray indexing using a pointer: \n");
-  for (ii=0;ii<5;ii++) {
+  printf("Array indexing using a pointer: \n");
+  for(ii=0;ii<5;ii++) {
     printf("%d ", ptr[ii]);
-  }
-  printf ("\n");
-
-  printf("\nPointer arithmetic using array name: \n");
-  for (ii=0;ii<5;ii++) {
+  } 
+  printf("\n\n");
+  
+  printf("Pointer arithmetic with an array name: \n");
+  for(ii=0;ii<5;ii++) {
     printf("%d ", *(arr+ii));
-  }
-  printf ("\n");
+  } 
+  printf("\n\n");
 
   printf("\nAre arrays and pointers the same?\n");
-  printf("  size of arr=%d\n", sizeof(arr));
-  printf("  size of ptr=%d\n", sizeof(ptr));
+  printf("  size of arr=%lu\n", sizeof(arr));
+  printf("  size of ptr=%lu\n", sizeof(ptr));
 
-  /* you can assign a value to pointer, but not an array name */
-  ptr = &ii;
-  /* arr = &ii; */
+  /* You can assign a value to a pointer, but not an array name */
+  /* VALID: ptr = &ii; */
+  /* COMPILE ERROR arr = &ii; */
 
-  printf("\nIncrementing a pointer: \n");
-  ptr = arr;
-  for (ii=0;ii<5;ii++) {
+    
+  printf("\n\nPointer arithmetic (using increment operator): \n");
+  for(ii=0;ii<5;ii++) {
     printf("%d ", *ptr);
-    ptr ++;
-  }
-  printf ("\n");
+    ptr++;
+  } 
+  printf("\n");
 
   return 0;
 }
-
