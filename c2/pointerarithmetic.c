@@ -4,49 +4,56 @@ int main() {
   int x = 7;
   int y = 3333;
   int z;
-  int *p = &x;
+  int * p = &y;
 
-  z = 10;
-  printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
-  printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
-  printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
-  printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);  
+  printf("Initial values:\n");
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
+  printf("\nz=10:\n");
+  z=10;
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
-  *p = 12;
-  printf("\nAfter *p = 12\n");
-  printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
-  printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
-  printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
-  printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);  
+  printf("\n*p=12:\n");
+  *p=12;
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
+  /* YMMV - None of this is guaranteed to work as expected */
+  printf("\n*p++:\n");
   p++;
-  printf("\nAfter p++\n");
-  printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
-  printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
-  printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
-  printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);  
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
+  printf("\n*p=24:\n");
   *p=24;
-  printf("\nAfter *p=24\n");
-  printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
-  printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
-  printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
-  printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);  
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
+  printf("\n(*p)++:\n");
   (*p)++;
-  printf("\nAfter (*p)++\n");
-  printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
-  printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
-  printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
-  printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);  
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
-  (*(++p))++;
-  printf("\nAfter (*(++p))++\n");
-  printf("x: %10d, %p, %d\n", x, (void *) &x, sizeof(x));
-  printf("y: %10d, %p, %d\n", y, (void *) &y, sizeof(y));
-  printf("z: %10d, %p, %d\n", z, (void *) &z, sizeof(z));
-  printf("p: %10p, %p, %d, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p);  
+  printf("\n(*(--p))++:\n");
+  (*(--p))++;
+  printf("x: %16d, %p, %lu\n", x, (void *) &x, sizeof(x));
+  printf("y: %16d, %p, %lu\n", y, (void *) &y, sizeof(y));
+  printf("z: %16d, %p, %lu\n", z, (void *) &z, sizeof(z));
+  printf("p: %16p, %p, %lu, *p=%d\n", (void *) p, (void *) &p, sizeof(p), *p); 
 
   return 0;
 }
