@@ -41,9 +41,9 @@ int main() {
 
     struct bitf bitfield = {7, 2, 1};
 
-    printf ("Size of tightstruct = %d\n", sizeof(struct tightstruct));
-    printf ("Size of loosestruct = %d\n", sizeof(struct loosestruct));
-    printf ("Size of bitfield = %d\n", sizeof(struct bitf));
+    printf ("Size of tightstruct = %ld\n", sizeof(struct tightstruct));
+    printf ("Size of loosestruct = %ld\n", sizeof(struct loosestruct));
+    printf ("Size of bitfield = %ld\n", sizeof(struct bitf));
 
     return 0;
 }

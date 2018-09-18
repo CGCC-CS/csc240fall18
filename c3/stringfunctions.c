@@ -24,10 +24,10 @@ int main () {
     strncpy(ptr2, "Spring '18 THIS GETS TRUNCATED", LEN); 
 
     printf("Initial Strings: \n");
-    printf("  str1 : %s, length=%u\n", str1, strlen(str1));
-    printf("  str2 : %s, length=%u\n", str2, strlen(str2));
-    printf("  ptr1 : %s, length=%u\n", ptr1, strlen(ptr1));
-    printf("  ptr2 : %s, length=%u\n", ptr2, strlen(ptr2));
+    printf("  str1 : %s, length=%lu\n", str1, strlen(str1));
+    printf("  str2 : %s, length=%lu\n", str2, strlen(str2));
+    printf("  ptr1 : %s, length=%lu\n", ptr1, strlen(ptr1));
+    printf("  ptr2 : %s, length=%lu\n", ptr2, strlen(ptr2));
 
     /* Try Each of these and see which works.  (Print the output for any that
      * allow assignment to be done.  Note that changing ptr1 will mean we

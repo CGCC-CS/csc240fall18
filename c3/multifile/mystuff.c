@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include"mystuff.h"  /* Quotes indicates local include file */
+#include"mystuff.h"
 
 int max_of_three(int a, int b, int c) {
   if ( (a > b) && (a > c) ) 
@@ -8,5 +8,4 @@ int max_of_three(int a, int b, int c) {
     return b;
   return c;
 }
-
 
