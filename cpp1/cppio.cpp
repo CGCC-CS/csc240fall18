@@ -1,20 +1,28 @@
 #include<iostream>
 #include<string>
 
-using namespace std;
-
 int main() {
   int count;
-  string str;
+  std::string str;
 
-  cout << "Enter a number: ";
-  cin >> count;
+  std::cout << "Enter a number: ";
+  std::cin >> count;
 
-  cout << "Enter a string: ";
-  cin >> str;   // Only gets characters until the next whitespace!
+  std::cout << "Enter a word: ";
+  std::cin >> str;  // Note - this only gets characters until the next whitespace
+  std::getline(std::cin, str);  // Clear the input
 
-  for(int ii=0;ii<count;ii++) {
-    cout << ii << " : " << str << endl;
+  for (int ii=0;ii<count;ii++) {
+    std::cout << ii+1 << " : " << str << std::endl;
+  }
+ 
+
+  std::cout << std::endl;
+  std::cout << "Enter a string: ";
+  std::getline(std::cin, str);
+
+  for (int ii=0;ii<count;ii++) {
+    std::cout << ii+1 << " : " << str << std::endl;
   }
 
   return 0;
