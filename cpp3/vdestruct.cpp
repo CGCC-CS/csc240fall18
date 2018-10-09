@@ -1,26 +1,27 @@
-#include <iostream>
+#include<iostream>
 
 using namespace std;
 
 class MyBase {
   public:
-    MyBase() { cout << "  MyBase constructor " << endl; }
-    virtual ~MyBase() { cout << "  MyBase destructor " << endl; }
+    MyBase() { cout << "  MYBASE Constructor" << endl; }
+    virtual ~MyBase() { cout << "  MYBASE Destructor" << endl; }
 };
 
 class MyClass : public MyBase {
   private:
     int * a;
   public:
-    MyClass(int x=0) { 
+    MyClass(int x=0) {
       a = new int;
       *a = x;
-      cout << "  MyClass Constructor: " << *a << endl;
+      cout << "  MYCLASS Constructor: " << *a << endl;
     }
-    ~MyClass() { 
-      cout << "  MyClass Destructor: " << *a << endl; 
-      delete(a);
-      a = nullptr;
+
+    ~MyClass() {
+      cout << "  MYCLASS Destructor: " << *a << endl;
+      delete a;
+      a=nullptr;
     }
 };
 
