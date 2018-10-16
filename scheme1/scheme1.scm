@@ -4,35 +4,34 @@
 ;    x = something
 ;    y = change(x)
 ;    result = calculate(y)
+
 ; Functional style:
 ;    calculate(change(something))
 
-; Scheme forms are something you ask Scheme to evaluate
+; A Scheme form is something you ask Scheme to evaluate
 
 ; Comments start with a semi-colon
-#;(define ignore
+#;(define ignore_me
   (lambda (x)
     (* x 0)))
 
-(newline)
-
 "Data types"
-"Hello, world"   ; string
-'HelloWorld      ; symbol
-+                ; primitive
-#t               ; boolean
-#f               ; boolean
-#\A              ; character
+"Hello, world" ; string
+'HelloWorld    ; symbol
++              ; primitive
+#t             ; boolean
+#f             ; boolean
+#\A            ; character
 
 (newline)
 "Numeric data types:"
-3      ; integer
-#b101  ; binary
-#x101  ; hexidecimal
-#o101  ; octal
-12.3   ; real
-7/3    ; fractions
-4+2i   ; imaginary
+3              ; integer
+#b101          ; binary
+#o101          ; octal
+#x101          ; hexidecimal
+12.3           ; real
+7/3            ; fractions
+4+2i           ; imaginary
 
 (newline)
 "Number predicates"
@@ -46,6 +45,15 @@
 (real? 2+0i)
 
 (newline)
+"Symbols & Strings"
+(symbol? "hello")
+(string? "hello")
+(symbol? 'hello)
+(string? 'hello)
+(symbol->string 'hello)
+(string->symbol "hello")
+
+(newline)
 "Math"
 (+ 10 10)
 (* 10 10)
@@ -53,7 +61,7 @@
 (* 3 4)
 (+ 1 2 3 4 5 6 7 8 9 10)
 (* 1 2 3 4 5 6 7 8 9 10)
-(* (/ (* 7 (- 8 2)) (/ (* 6 3) (* 2 2 3 (/ 1 2)))) 2)
+(* (/ (* 7 (- 8 2)) (/ (* 6 3) (* 2 3 2 (/ 1 2)))) 2)
 
 (newline)
 "Define x, y, & z"
@@ -68,52 +76,51 @@ z
 (newline)
 "Define a procedure"
 (* 3 x)
-(lambda (x) (* 3 x))    ; unnamed procedure
+(lambda (x) (* 3 x)) ; unnamed procedure
 ((lambda (x) (* 3 x)) 5)
-((lambda (x) (* 3 x)) y)
-(define trip       ; define associates a name with an expression
-  (lambda (x)      ; lambda defines a procedure
-    (* 3 x)))      ; this form assoicates the name "trip" with 
-                   ; the lambda expression
+((lambda (x) (* 3 x)) x) ; be careful with scope
+(define trip   ; define associates a name with form
+  (lambda (x)  ; lambda defines a procedure
+    (* 3 x)))  ; this form associates the name "trip" with the
+               ;   lambda expression
 trip
 (trip 9)
 (trip y)
-(+ x y (trip 5))
+(+ 1 x (trip 5))
 
-; define a parameter with 2 parameters
+; define a procedure with 2 parameters
 (define addem
   (lambda (a b)
     (+ a b)))
 (addem x y)
-(addem 3 (addem 4 2))
+(addem 10 (addem 20 30))
 
 (newline)
-"function as a parameter"
+"Function as a parameter"
 (define increment
   (lambda (x)
     (+ x 1)))
-(increment 4)
-(increment x)
+(increment 10)
+(increment (increment (increment (increment 1))))
 (define do
   (lambda (this that)
     (this that)))
 (do increment 8)
 (do trip 10)
-(do (lambda (x) (* 2 x)) 10)
-;(do 3 4)
-;(do addem 4)
+;(do 1 2)
+(do (lambda (x) (* x x)) 3)
+;(do addem 1)
 
 (newline)
-"Recursion"
 (define fact
   (lambda (n)
-    (if (<= n 1)  ; (if condition evaluate-if-true evaluate-if-false)
+    (if (<= n 1) ; (if condition evaluate-if-true evaluate-if-false)
         1
         (* n (fact (- n 1))))))
 (fact 10)
 (fact 30)
 (fact 100)
-;(fact 1000)
+;(fact 10000)
 
 "tail-recursion"
 (define fact-tail
@@ -124,20 +131,22 @@ trip
     (if (<= n 1)
         acc
         (fact-tail-acc (- n 1) (* n acc)))))
-(fact-tail 500)
+(fact-tail 100)
 
 (newline)
 "Lists"
 (list x y z)
-(list 'x 'y 'z)    ; ' means "do not evaluate"
+(list 'x 'y 'z)  ; ' means "do not evaluate"
 '(x y z)
 (quote (x y z))
 (quote z)
 (define lst '(a b c))
-(define lst2 (list 'a 2 "hello" 'world / #f + fact-tail 18 'a #\H))
-(define oplist (list + / -))
+(define lst2 (list 'a 2 "hello" 'world / #f + fact-tail 18 'a #\H '(1 2 3)))
+(define lst3 (quote ('a 2 "hello" 'world / #f + fact-tail 18 'a #\H '(1 2 3))))
+(define oplist (list + - * /))
 lst
 lst2
+lst3
 oplist
 
 (newline)
@@ -152,35 +161,26 @@ lst
 (car lst)
 (cdr lst)
 (car (cdr lst))
-(cdr (cdr lst))
-(car (cdr (cdr lst)))
-(cdr (cdr (cdr lst)))
-;
 (cadr lst)
-(cddr lst)
-(caddr lst)
-(cdddr lst)
-;(cdr '())
-(newline)
 (cdr '(1))
 (car '((4 5 6)))
 (car (car '((4 5 6))))
 
 (newline)
 "Fun with car & cdr)"
-(define lst3 '((1 2) (3 4 (5 6)) (7 8)))
-lst3
-(cdr lst3)
-(car (cdr lst3))
-(car (car (cdr lst3)))
-(cdr (car (cdr lst3)))
-(car (cdr (car (cdr lst3))))
-(cdr (cdr (car (cdr lst3))))
-(car (cdr (cdr (car (cdr lst3)))))
-(cdr (cdr (cdr (car (cdr lst3)))))
-(car (car (cdr (cdr (car (cdr lst3))))))
-(cdr (car (cdr (cdr (car (cdr lst3))))))
-(car (cdr (car (cdr (cdr (car (cdr lst3)))))))
+(define lst4 '((1 2) (3 4 (5 6)) (7 8)))
+lst4
+(cdr lst4)
+(car (cdr lst4))
+(car (car (cdr lst4)))
+(cdr (car (cdr lst4)))
+(car (cdr (car (cdr lst4))))
+(cdr (cdr (car (cdr lst4))))
+(car (cdr (cdr (car (cdr lst4)))))
+(cdr (cdr (cdr (car (cdr lst4)))))
+(car (car (cdr (cdr (car (cdr lst4))))))
+(cdr (car (cdr (cdr (car (cdr lst4))))))
+(car (cdr (car (cdr (cdr (car (cdr lst4)))))))
 
 (newline)
 "List with size 1"
@@ -200,15 +200,6 @@ lst3
 (equal? '(1 2 3) '(1 2 3))
 (= 32 (* 4 8))
 (= '32 (* 4 8))
-
-(newline)
-"Symbols & Strings"
-(symbol? "hello")
-(string? "hello")
-(symbol? 'hello)
-(string? 'hello)
-(symbol->string 'hello)
-(string->symbol "hello")
 
 (newline)
 "Cool example"
