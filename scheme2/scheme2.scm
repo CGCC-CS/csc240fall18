@@ -9,10 +9,12 @@ c
 
 (* -1 c)
 (- c)
+(- (- c))
 
 (define opposite
   (lambda (x)
     (- x)))
+(opposite 10)
 (opposite -10)
 (opposite (opposite 12))
 
@@ -33,27 +35,28 @@ null
   (lambda (x f2 f1)
     (if (<= x 2)
         (+ f1 f2)
-        (fib-tail-acc (- x 1) f1 (+ f1 + f2)))))
+        (fib-tail-acc (- x 1) f1 (+ f1 f2)))))
+(fib-tail 10)
 
 (newline)
 "Elements in a list"
 (define isit-lst0 (+ 2 3))
 (define isit-lst1 '(+ 2 3))
 (define isit-lst2 (list + 2 3))
-(define isit-lst3 (list (+ 2 3)))
-(define isit-lst4 (list '(+ 2 3)))
+(define isit-lst3 (list (+ 2 3 )))
+(define isit-lst4 (list '(+ 2 3 )))
 isit-lst0
 isit-lst1
 isit-lst2
 isit-lst3
 isit-lst4
 (length isit-lst4)
+(length (car isit-lst4))
 (car isit-lst1)
 (car isit-lst2)
 ;((car isit-lst1) 8 9 10)
 ((car isit-lst2) 8 9 10)
-
-;       +                    2                      3
+;       +                   2                        3
 ((car isit-lst2) (car (cdr isit-lst2)) (car (cdr (cdr isit-lst2))))
 
 (newline)
@@ -68,7 +71,7 @@ exlst2
 exlst3
 
 (newline)
-"Conditional statement"
+"Conditional statements"
 (define what-is-it?
   (lambda (x)
     (cond
@@ -103,7 +106,6 @@ exlst3
     (- x 1)))
 (increment 10)
 (decrement 10)
-; Only works for positive #'s
 (define recursive-add
   (lambda (x y)
     (if (<= y 0)
@@ -111,7 +113,16 @@ exlst3
         (recursive-add (increment x) (decrement y)))))
 (recursive-add 3 4)
 (recursive-add 10 15)
-        
+(define recursive-mult
+  (lambda (x y)
+    (recursive-mult-helper x x y)))
+(define recursive-mult-helper
+  (lambda (x n y)
+    (if (<= y 1)
+        n
+        (recursive-mult-helper x (recursive-add x n) (decrement y)))))
+(recursive-mult 3 4)
+(recursive-mult 10 15)
 
 (newline)
 "Lists"
@@ -125,10 +136,11 @@ lst
 (cons 0 lst)
 (car (cons 0 lst))
 (cdr (cons 0 lst))
-(cons '(a b c) lst)
+(cons '(a b c d) lst)
 (cons lst lst)
-(append '(a b c) lst)
+(append '(a b c d) lst)
 (append lst lst)
+(append lst (cons lst lst))
 
 (newline)
 "List procedures"
@@ -144,10 +156,11 @@ lst
 
 (define sumlist
   (lambda (lst)
-    (if (or (not (list? lst)) (null? lst))
+    (if (null? lst)
         0
         (+ (car lst) (sumlist (cdr lst))))))
 (sumlist lst)
+(sumlist '(-1 1 3 -4 7 -3 9 -4))
 
 (define do-nothing
   (lambda (lst)
@@ -157,7 +170,10 @@ lst
 (do-nothing '())
 (do-nothing lst)
 
-(define double (lambda (x) (* x 2)))
+(define double
+  (lambda (x)
+    (* 2 x)))
+; Double each element in the list
 (define doublelist
   (lambda (lst)
     (if (null? lst)
@@ -165,41 +181,51 @@ lst
         (cons (double (car lst)) (doublelist (cdr lst))))))
 (doublelist lst)
 
-(define sum-doublelist
+; Add the double of each element in the list
+(define sumdoublelist
   (lambda (lst)
     (if (null? lst)
         0
-        (+ (double (car lst)) (sum-doublelist (cdr lst))))))
-(sum-doublelist lst)
+        (+ (double (car lst)) (sumdoublelist (cdr lst))))))
+(sumdoublelist lst)
 
-(define better-sum-doublelist
+(define better-sumdoublelist
   (lambda (lst)
     (sumlist (doublelist lst))))
-(better-sum-doublelist lst)
+(better-sumdoublelist lst)
 
-(define allnums
+(define duplicatelist
   (lambda (lst)
     (if (null? lst)
-        lst
+        '()
+        (cons (car lst) (cons (car lst) (duplicatelist (cdr lst)))))))
+(duplicatelist lst)
+
+(define onlynums
+  (lambda (lst)
+    (if (null? lst)
+        '()
         (if (number? (car lst))
-            (cons (car lst) (allnums (cdr lst)))
-            (allnums (cdr lst))))))
-;(allnums 'numbers)
-(allnums '('hello 'world))
-(allnums (list a b c 'd 'e 'f 1 2 3 'hello '(4 5 6) + - (+ 2 3)))
-(sum-doublelist (allnums (list a b c 'd 'e 'f 1 2 3 'hello '(4 5 6) + - (+ 2 3))))
+            (cons (car lst) (onlynums (cdr lst)))
+            (onlynums (cdr lst))))))
+(onlynums '('hello "world"))
+(onlynums (list a b c 'd 'e 'f 1 2 3 'hello '(4 5 6) + - (+ 2 3)))
+(duplicatelist (onlynums (list a b c 'd 'e 'f 1 2 3 'hello '(4 5 6) + - (+ 2 3))))
+(sumdoublelist (onlynums (list a b c 'd 'e 'f 1 2 3 'hello '(4 5 6) + - (+ 2 3))))
 
 (newline)
 "Pairs"
 (cons 1 '(2))
 (cons 1 2)
+(list? '(1 2))
+(list? '(1 . 2))
+(pair? '(1 2))
+(pair? '(1 . 2))
 (car '(1 . 2))
 (cdr '(1 . 2))
-(pair? '(1 . 2))
-(pair? '(1 2))
-(define pair1 '(a . b))    ;[ a . b]
-(define pair2 '(a . (b)))
-(define pair3 '(a b))      ;[ a . [ b . () ] ]
+(define pair1 '(a . b))     ; [ a . b ]
+(define pair2 '(a . '()))   ; [ a . '() ] => (a)
+(define pair3 '(a . (b)))   ; [ a . [ b . '() ] ] => (a b)
 pair1
 pair2
 pair3
